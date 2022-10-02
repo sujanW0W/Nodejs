@@ -4,6 +4,8 @@
 
 const {readFileSync, writeFileSync} = require('fs')
 
+// console.log('start')
+
 const first = readFileSync('./contents/firstFile.txt', 'utf8')
 const second = readFileSync('./contents/secondFile.txt', 'utf8')
 
@@ -20,3 +22,6 @@ writeFileSync(
     'Appending the text. Successful.',
     {flag : 'a'}
     )
+
+// console.log('done with the write')
+// console.log('starting new task')
