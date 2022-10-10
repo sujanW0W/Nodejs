@@ -1,0 +1,1 @@
+Util technique : Hello! This is the first text file. + Hello! This is the second text file.fs.Promises technique : Hello! This is the first text file. + Hello! This is the second text file.
