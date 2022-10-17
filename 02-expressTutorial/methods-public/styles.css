@@ -1,0 +1,93 @@
+*{
+    margin: 0px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+}
+
+#navBar{
+    width: 100%;
+    height: 100px;
+    background-color: #595959;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#navHead{
+    font-size: 2rem
+}
+
+#navBar .options{
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.options a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.options a:hover{
+    color: #32CD32;
+}
+
+#mainBody{
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bodyContainer{
+    background-color: #595959;
+    width: 60vw;
+    height: 60vh;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 100px;
+}
+
+form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+#bodyHeader{
+    font-size: 3rem;
+}
+
+#nameSection{
+    width: 100%;
+    height: 50px;
+    border: 2px solid ;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px;
+    color: #595959;
+}
+
+#submit{
+    width: 15%;
+    height: 35px;
+    border: 2px solid;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #595959;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
