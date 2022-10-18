@@ -91,3 +91,8 @@ form{
     align-items: center;
     cursor: pointer;
 }
+
+#result h2{
+    color: black;
+    text-align: center;
+}
