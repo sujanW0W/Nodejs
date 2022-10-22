@@ -64,6 +64,13 @@ form{
     color: #595959;
 }
 
+#buttons{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 #submit{
     width: 15%;
     height: 35px;

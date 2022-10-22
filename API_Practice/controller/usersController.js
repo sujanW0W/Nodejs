@@ -24,14 +24,50 @@ const createUsers = (req, res) => {
 
 const updateUsers = (req, res) => {
     //PUT
-    res.status(200).send("PUT SUCCESS")
+    const {name} = req.params;
+    const newName = req.body.name;
 
+    const data = JSON.parse(readFileSync('./data.json','utf8'))
+    const finding = data.find( person => {
+        return person.name === name;
+    })
+    if(!finding)
+        return res.status(401).json({success: false, data: name})
+    
+    const updatedData = data.map( person => {
+        if(person.name === name)
+            return {name: newName};
+        return person
+    })
+
+    writeFileSync('./data.json', JSON.stringify(updatedData))
+
+    res
+        .status(200)
+        .json({success: true, msg: "Updated"})
 }
 
 const deleteUsers = (req, res) => {
     //DELETE
-    res.status(200).send("DELETE SUCCESS")
+    const {name} = req.params;
+    const data = JSON.parse(readFileSync('./data.json','utf8'))
 
+    const finding = data.find( person => {
+        return person.name === name;
+    })
+
+    if(!finding)
+        return res.status(401).json({success: false, msg : `${name} is not found.`})
+
+    const updatedData = data.filter( person => {
+        return person.name !== name
+    })
+
+    writeFileSync('./data.json', JSON.stringify(updatedData))
+
+    res
+        .status(200)
+        .json({success: true, msg: `${name} is deleted.`})
 }
 
 module.exports = {
