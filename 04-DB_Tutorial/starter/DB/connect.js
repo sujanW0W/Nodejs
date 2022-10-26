@@ -1,1 +1,7 @@
-const connectionString = "mongodb+srv://sujanW0W:<password>@nodeprojects.t1xaot0.mongodb.net/?retryWrites=true&w=majority"
+const mongoose = require('mongoose')
+
+const connectDB = (uri) => {
+    return mongoose.connect(uri)
+}
+
+module.exports = connectDB
