@@ -1,11 +1,26 @@
 const Task = require('../models/tasks')
 
-const getAllTasks = (req, res) => {
-    res.send("Get all tasks...")
+const getAllTasks = async (req, res) => {
+    try {
+        const tasks = await Task.find({});
+        res.status(200).json({tasks})
+    } catch (error) {
+        res.status(500).json({error})
+    }
 }
 
-const getSingleTask = (req, res) => {
-    res.json({ id: req.params.id})
+const getSingleTask = async (req, res) => {
+   try {
+        const {id: taskID} = req.params;
+        const task = await Task.findById(taskID)
+
+        if(!task)
+            return res.status(404).json({ msg: `Can not find task with id: ${taskID}`})
+
+        res.status(200).json({task})
+   } catch (error) {
+        res.status(500).json({error})
+   }
 }
 
 const createTask = async (req, res) => {
