@@ -32,12 +32,35 @@ const createTask = async (req, res) => {
    }
 }
 
-const updateTask = (req,res) => {
-    res.json({ id : req.params.id})
+const updateTask = async (req,res) => {
+    try {
+        const {id: taskID} = req.params
+        const task = await Task.findByIdAndUpdate(taskID, req.body,{
+            new: true,
+            runValidators: true
+        })
+
+        if(!task)
+            return res.status(404).json({ msg: `Can not find task with id: ${taskID}`})
+
+        res.status(200).json({ task })
+    } catch (error) {
+        res.status(500).json({ error })
+    }
 }
 
-const deleteTask = (req, res) => {
-    res.json({ id: req.params.id})
+const deleteTask = async (req, res) => {
+    try {
+        const {id: taskID} = req.params;
+        const task = await Task.findByIdAndDelete(taskID);
+
+        if(!task)
+            return res.status(404).json({ msg: `Can not find task with id: ${taskID}`})
+
+        res.status(200).json({task})
+    } catch (error) {
+        res.status(500).json({error})
+    }
 }
 
 
