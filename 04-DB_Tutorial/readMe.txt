@@ -1,6 +1,1 @@
-This is the Tutorial of working with DB.
-Linking Mongoose DB with the Node js application.
-
-Monogo DB is basically a Non-SQL DB.
-
-Lets Learn!!!
+In order to run the project, setup .env and set MONGO_URI variable equal to DB connection string.
