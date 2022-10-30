@@ -1,39 +1,40 @@
 const Task = require('../models/tasks')
 
-const getAllTasks = async (req, res) => {
-    try {
+const asyncWrapper = require('../middleware/asyncWrapper')
+
+const {createCustomError} = require('../error/customError')
+
+const getAllTasks = asyncWrapper( async (req, res) => {
         const tasks = await Task.find({});
         res.status(200).json({tasks})
-    } catch (error) {
-        res.status(500).json({error})
-    }
-}
 
-const getSingleTask = async (req, res) => {
-   try {
+        // res.status(200).json({tasks, nbHits: tasks.length})
+
+        // res
+        //     .status(200)
+        //     .json({ success: true, data: {tasks, nbHits: tasks.length}})
+
+        // response can be set in different ways. Just be consistent with the one that you prefer. 
+})
+
+const getSingleTask = asyncWrapper( async (req, res, next) => {
         const {id: taskID} = req.params;
         const task = await Task.findById(taskID)
 
         if(!task)
-            return res.status(404).json({ msg: `Can not find task with id: ${taskID}`})
+            return next(createCustomError(`Can not find task with id: ${taskID}`, 404))
 
         res.status(200).json({task})
-   } catch (error) {
-        res.status(500).json({error})
-   }
-}
+})
 
-const createTask = async (req, res) => {
-   try {
+const createTask = asyncWrapper (async (req, res) => {
+   
         const task = await Task.create(req.body)
         res.status(201).json({task})
-   } catch (error) {
-        res.status(500).json({error})
-   }
-}
+  
+})
 
-const updateTask = async (req,res) => {
-    try {
+const updateTask = asyncWrapper( async (req,res) => {
         const {id: taskID} = req.params
         const task = await Task.findByIdAndUpdate(taskID, req.body,{
             new: true,
@@ -41,27 +42,20 @@ const updateTask = async (req,res) => {
         })
 
         if(!task)
-            return res.status(404).json({ msg: `Can not find task with id: ${taskID}`})
+        return next(createCustomError(`Can not find task with id: ${taskID}`, 404))
 
-        res.status(200).json({ task })
-    } catch (error) {
-        res.status(500).json({ error })
-    }
-}
+})
 
-const deleteTask = async (req, res) => {
-    try {
+const deleteTask = asyncWrapper( async (req, res) => {
         const {id: taskID} = req.params;
         const task = await Task.findByIdAndDelete(taskID);
 
         if(!task)
-            return res.status(404).json({ msg: `Can not find task with id: ${taskID}`})
+        return next(createCustomError(`Can not find task with id: ${taskID}`, 404))
 
         res.status(200).json({task})
-    } catch (error) {
-        res.status(500).json({error})
-    }
-}
+   
+})
 
 
 module.exports = {
