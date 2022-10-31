@@ -1,7 +1,7 @@
-const mongo_URI = "mongodb+srv://sujanW0W:Aoc9H2bdEVeqALAJ@nodeprojects.t1xaot0.mongodb.net/Todo?retryWrites=true&w=majority"
+const mongoose = require('mongoose')
 
-const connect = (mongo_URI) => {
-    mongoose.connect(mongo_URI)
+const connectDB = (uri) => {
+    return mongoose.connect(uri)
 }
 
-module.exports = connect
+module.exports = connectDB
