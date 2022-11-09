@@ -5,6 +5,19 @@ const dashboardBtn = document.querySelector("#dashboardBtn")
 const loginSection = document.querySelector("#loginSection")
 const dashboardSection = document.querySelector("#dashboardSection")
 
+const tokenChecker = document.querySelector(".tokenChecker")
+const checkToken = () => {
+    if (localStorage.getItem("token")) {
+        tokenChecker.innerHTML = "Token Present."
+        tokenChecker.classList.add("tokenPresent")
+    } else {
+        tokenChecker.innerHTML = "Token Absent."
+        tokenChecker.classList.remove("tokenPresent")
+    }
+}
+
+checkToken()
+
 loginBtn.addEventListener("click", async (e) => {
     e.preventDefault()
 
@@ -21,8 +34,12 @@ loginBtn.addEventListener("click", async (e) => {
         )
 
         loginSection.innerHTML = data.msg
+        localStorage.setItem("token", data.token)
+        checkToken()
     } catch (error) {
-        loginSection.innerHTML = "Login Failed."
+        loginSection.innerHTML = error.response.data.msg
+        localStorage.removeItem("token")
+        checkToken()
     }
 
     setTimeout(() => {
@@ -34,12 +51,19 @@ dashboardBtn.addEventListener("click", async (e) => {
     e.preventDefault()
 
     try {
-        const { data } = await axios.get("http:localhost:5000/api/v1/dashboard")
+        const { data } = await axios.get(
+            "http://localhost:5000/api/v1/dashboard",
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        )
         if (data) {
-            dashboardSection.innerHTML = data
+            dashboardSection.innerHTML = data.msg
         }
     } catch (error) {
-        dashboardSection.innerHTML = "Cant fetch data."
+        dashboardSection.innerHTML = error.response.data.msg
     }
 
     setTimeout(() => {

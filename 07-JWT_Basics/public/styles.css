@@ -23,7 +23,7 @@
 .dashboard{
     width: 50%;
     height: 50%;
-    background-color: steelblue;
+    background-color: #979ea5;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,4 +33,13 @@
 
 p{
     margin: 0px;
+    font-size: 20px;
+}
+
+.tokenChecker{
+    color: red;
+}
+
+.tokenPresent{
+    color: green;
 }
