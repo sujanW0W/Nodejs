@@ -5,11 +5,14 @@ app.use(express.json())
 
 require("dotenv").config()
 
+const users = require("./routes/users")
 const tasks = require("./routes/tasks")
 const notFound = require("./middleware/notFound")
 
 const cors = require("./CORS/corsSetting")
 app.use(cors)
+
+app.use("/api/v1/users", users)
 
 app.use("/api/v1/tasks", tasks)
 
